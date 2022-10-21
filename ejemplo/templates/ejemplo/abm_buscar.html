@@ -1,0 +1,32 @@
+{% extends 'ejemplo/base.html' %}
+{% block titulo%} Buscar Usuario por ID {% endblock %}
+{% block contenido %}
+  
+  <form action="/abm/buscar" method="post">
+    {% csrf_token %}
+    ID : {{form.nombre }}
+    <input type="submit" value="Submit">
+  </form>
+
+  {% for user in usuario %}
+      <ul>
+          <li> Usuario: {{user.usuario}}</li>
+          <li> Nombre: {{user.nombre}}</li>
+          <li> Edad: {{user.edad}}</li>
+
+          <a href="{% url 'eliminar' user.usuario  %}">
+            <button>Borrar</button>
+          </a> 
+        <a href="{% url 'modificar' user.usuario  %}">
+            <button>Modificar</button>
+          </a> 
+
+      </ul>    
+  {% endfor %}
+  
+  <a href="http://127.0.0.1:8000/abm">
+    <button>Volver al menu</button>
+  </a> 
+
+
+{% endblock %}

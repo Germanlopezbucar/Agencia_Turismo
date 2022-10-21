@@ -1,0 +1,13 @@
+{% extends 'ejemplo/base.html' %}
+{% block titulo%} Usuario {{accion}} {% endblock %}
+{% block contenido %}
+
+    <ul>
+          <li> Usuario: {{usuario}}</li>
+    </ul>
+
+    <a href="http://127.0.0.1:8000/abm">
+        <button>Volver al menu</button>
+      </a> 
+
+{% endblock %}

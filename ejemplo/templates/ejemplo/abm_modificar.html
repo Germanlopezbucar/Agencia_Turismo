@@ -1,0 +1,27 @@
+{% extends 'ejemplo/base.html' %}
+{% block titulo%} Ingreso los siguientes datos {% endblock %}
+{% block contenido %}
+
+{% if miFormulario.errors %}
+
+    <p style="color: red;"> Están mal los datos, revisar</p>
+
+    {% endif %}
+
+    <form action="" method="POST">{% csrf_token %}
+        
+        <table>
+
+            {{ miFormulario.as_table }}
+
+        </table>
+
+        <input type="submit", value="Enviar">
+
+    </form>
+
+<a href="http://127.0.0.1:8000/abm">
+    <button>Volver al menu principal</button>
+  </a> 
+ 
+{% endblock %}

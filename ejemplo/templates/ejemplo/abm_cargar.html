@@ -1,0 +1,24 @@
+{% extends 'ejemplo/base.html' %}
+{% block titulo%} Ingreso los siguientes datos {% endblock %}
+{% block contenido %}
+
+<form action="/abm/cargar" method="post" >
+    {% csrf_token %}
+    <ul>
+        <li>ID : {{form.usuario }}</li>
+        <li>Nombre : {{form.nombre }}</li>
+        <li>Edad : {{form.edad }}</li>
+        <li>Contraseña : {{form.password}}</li>
+        <li>Vuelva a ingresar la Contraseña : {{form.password_dos}}</li>
+    </ul>
+
+    <input type="submit" value="Submit">
+
+    <h2 style="color:green">{{msg_exito}}</h2>
+</form>
+<a href="http://127.0.0.1:8000/abm">
+    <button>Volver al menu principal</button>
+  </a> 
+ 
+{% endblock %}
+

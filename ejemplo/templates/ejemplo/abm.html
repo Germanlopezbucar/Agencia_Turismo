@@ -1,0 +1,18 @@
+{% extends 'ejemplo/base.html' %}
+{% block titulo%} Operaciones Disponibles: {% endblock %}
+{% block contenido %}
+
+ 
+<form action="/abm/cargar" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Cargar usuario">
+</form>
+ 
+<form action="/abm/buscar" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Buscar usuario por identificador Unico">
+</form>
+
+{% endblock %}
