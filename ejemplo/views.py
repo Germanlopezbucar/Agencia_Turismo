@@ -66,10 +66,9 @@ class ABMCargar(View):
                     
             form = self.form_class(initial=self.initial)
             return render(request,"ejemplo/abm_borrar.html",{"usuario":un_usuario.usuario,"accion":"Guardado"})
-
-        return render(request, self.template_name, {"form": form})
         
-
+        return render(request, self.template_name, {"form": form,"error":form.errors})
+        
 class BuscarABM(View):
 
     form_class = Buscar
@@ -84,7 +83,7 @@ class BuscarABM(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             nombre = form.cleaned_data.get("nombre")
-            usuario = Usuario.objects.filter(usuario__icontains=nombre).all() 
+            usuario = Usuario.objects.filter(usuario=nombre).all() 
             form = self.form_class(initial=self.initial)
             return render(request, self.template_name, {'form':form, 
                                                         'usuario':usuario})
@@ -92,10 +91,9 @@ class BuscarABM(View):
         return render(request, self.template_name, {"form": form})
 
 def borrar (request,usuario):
-    un_usuario = Usuario.objects.filter(usuario__icontains=usuario).all()
-    id = usuario
+    un_usuario = Usuario.objects.filter(usuario=usuario).all()
     un_usuario.delete()
-    return render(request,"ejemplo/abm_borrar.html",{"usuario":id,"accion":"Borrado"})
+    return render(request,"ejemplo/abm_borrar.html",{"usuario":usuario,"accion":"Borrado"})
 
 def modificar(request, usuario):
 
@@ -108,16 +106,16 @@ def modificar(request, usuario):
         if miFormulario.is_valid: 
 
             informacion = miFormulario.cleaned_data
-
+           
             un_usuario.usuario = informacion['usuario']
             un_usuario.nombre = informacion['nombre']
-            un_usuario.edad = informacion['edad']
+            #un_usuario.edad = informacion['edad']
             un_usuario.password = informacion['password']
             un_usuario.password_dos = informacion['password_dos']
 
             un_usuario.save()
 
-            return render(request, "ejemplo/abm_borrar.html",{"usuario":un_usuario.usuario,"accion":"Modificado"})
+            return render(request, "ejemplo/abm_borrar.html",{"usuario":usuario,"accion":"Modificado"})
     else:
         
         miFormulario = abmCargar(initial={'usuario': un_usuario.usuario, 'nombre': un_usuario.nombre,

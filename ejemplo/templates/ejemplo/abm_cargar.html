@@ -5,11 +5,11 @@
 <form action="/abm/cargar" method="post" >
     {% csrf_token %}
     <ul>
-        <li>ID : {{form.usuario }}</li>
-        <li>Nombre : {{form.nombre }}</li>
-        <li>Edad : {{form.edad }}</li>
-        <li>Contraseña : {{form.password}}</li>
-        <li>Vuelva a ingresar la Contraseña : {{form.password_dos}}</li>
+        <li>ID : {{form.usuario }} <h6 style="color:red">{{form.usuario.errors}} </h6></li> 
+        <li>Nombre : {{form.nombre }} <h6 style="color:red">{{form.nombre.errors}} </h6></li>
+        <li>Edad : {{form.edad }}   <h6 style="color:red">{{form.edad.errors}} </h6></li>
+        <li>Contraseña : {{form.password}} <h6 style="color:red">{{form.password.errors}} </h6></li>
+        <li>Vuelva a ingresar la Contraseña : {{form.password_dos}} <h6 style="color:red">{{form.password_dos.errors}} </h6></li>
     </ul>
 
     <input type="submit" value="Submit">
