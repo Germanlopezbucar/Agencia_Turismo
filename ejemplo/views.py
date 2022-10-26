@@ -1,11 +1,9 @@
-from urllib import request
-from django import views
-from django.http import HttpResponse
 from django.shortcuts import render
 from ejemplo.models import Familiar, Usuario
 from ejemplo.forms import Buscar
 from django.views import View
 from ejemplo.forms import abmCargar
+from django.views.generic import UpdateView
 
 def index(request):
     return render(request, "ejemplo/saludar.html")
@@ -41,7 +39,7 @@ def abm(request):
 class ABMCargar(View):
 
     form_class = abmCargar
-    template_name = 'ejemplo/abm_cargar.html'
+    template_name = 'ejemplo/usuario_form.html'
     initial = {"usuario":"",
                 "nombre":"",
                 "edad":"",
@@ -95,31 +93,7 @@ def borrar (request,usuario):
     un_usuario.delete()
     return render(request,"ejemplo/abm_borrar.html",{"usuario":usuario,"accion":"Borrado"})
 
-def modificar(request, usuario):
-
-    un_usuario = Usuario.objects.get(usuario=usuario)
-
-    if request.method == 'POST':
-
-        miFormulario = abmCargar(request.POST)
-
-        if miFormulario.is_valid: 
-
-            informacion = miFormulario.cleaned_data
-           
-            un_usuario.usuario = informacion['usuario']
-            un_usuario.nombre = informacion['nombre']
-            #un_usuario.edad = informacion['edad']
-            un_usuario.password = informacion['password']
-            un_usuario.password_dos = informacion['password_dos']
-
-            un_usuario.save()
-
-            return render(request, "ejemplo/abm_borrar.html",{"usuario":usuario,"accion":"Modificado"})
-    else:
-        
-        miFormulario = abmCargar(initial={'usuario': un_usuario.usuario, 'nombre': un_usuario.nombre,
-                                                   'edad': un_usuario.edad, 'password': un_usuario.password,
-                                                   'password_dos': un_usuario.password_dos})
-
-    return render(request, "ejemplo/abm_modificar.html", {"miFormulario": miFormulario, "usuario": un_usuario})
+class UsuarioActualizar(UpdateView):
+  model = Usuario
+  success_url = "/abm/"
+  fields = ["usuario", "nombre", "edad","password","password_dos"]

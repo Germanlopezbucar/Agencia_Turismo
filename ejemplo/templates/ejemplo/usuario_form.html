@@ -2,10 +2,10 @@
 {% block titulo%} Ingreso los siguientes datos {% endblock %}
 {% block contenido %}
 
-<form action="/abm/cargar" method="post" >
+<form method="post" >
     {% csrf_token %}
     <ul>
-        <li>ID : {{form.usuario }} <h6 style="color:red">{{form.usuario.errors}} </h6></li> 
+        <li>Usuario : {{form.usuario }} <h6 style="color:red">{{form.usuario.errors}} </h6></li> 
         <li>Nombre : {{form.nombre }} <h6 style="color:red">{{form.nombre.errors}} </h6></li>
         <li>Edad : {{form.edad }}   <h6 style="color:red">{{form.edad.errors}} </h6></li>
         <li>Contraseña : {{form.password}} <h6 style="color:red">{{form.password.errors}} </h6></li>
@@ -14,7 +14,7 @@
 
     <input type="submit" value="Submit">
 
-    <h2 style="color:green">{{msg_exito}}</h2>
+ 
 </form>
 <a href="http://127.0.0.1:8000/abm">
     <button>Volver al menu principal</button>
