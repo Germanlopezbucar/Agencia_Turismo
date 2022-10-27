@@ -8,3 +8,7 @@ class Configuracion(models.Model):
     construido_por = models.CharField(max_length=30)
     titulo_principal = models.CharField(max_length= 30,default="")
     subtitulo_principal = models.CharField(max_length= 60,default="")
+
+class Post(models.Model):
+    titulo = models.CharField(max_length=30)
+    descripcion = models.CharField(max_length= 60,default="")

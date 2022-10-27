@@ -15,21 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from ejemplo.views import  (ABMCargar, BuscarABM, UsuarioActualizar, borrar,  index, monstrar_familiares, 
+from ejemplo.views import  (ABMCargar, BuscarABM, borrar,  index, modificar, monstrar_familiares, 
                             BuscarFamiliar, abm)
-from blog.views import index as blog_index
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludar/', index),
     path('mi-familia/', monstrar_familiares),
-    path('blog/',blog_index),
     path('mi-familia/buscar', BuscarFamiliar.as_view()),
     path('abm/',abm),
     path('abm/buscar', BuscarABM.as_view()),
     path('abm/cargar', ABMCargar.as_view()),
     path('abm/borrar/<usuario>/', borrar, name="eliminar"),
-    path('abm/modificar/<int:pk>', UsuarioActualizar.as_view(), name="modificar"),
+    path('abm/modificar/<usuario>/', modificar.as_view(), name="modificar"),
     path('panel_familia/', include('panel_familia.urls')),
+    path('blog/', include('blog.urls')),
 ]

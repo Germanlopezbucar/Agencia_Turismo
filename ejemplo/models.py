@@ -1,6 +1,4 @@
 from django.db import models
-from traitlets import default
-
 
 class Familiar(models.Model):
     nombre = models.CharField(max_length=100)
@@ -20,7 +18,6 @@ class Usuario(models.Model):
     password = models.CharField(max_length=100)
     password_dos = models.CharField(max_length=100)
 
- 
     def __str__(self):
-        return f"Usuario:{self.usuario}, Nombre:{self.nombre}, Edad:{self.edad}"
+        return f"Usuario:{self.usuario}, Nombre:{self.nombre}, Edad:{self.edad}, ID:{self.id}"
 

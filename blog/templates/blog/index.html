@@ -120,10 +120,12 @@
                         <div class="card-header">Search</div>
                         <div class="card-body">
                             <div class="input-group">
-                            <form action="/blog/buscar" method="get"><!-- AGREGADO -->
+                                    <!-- AGREGADO -->
+                            <form action="{% url 'post-list' %}" method="get">
                                 <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
-                            </form><!-- AGREGADO -->
+                                <button class="btn btn-primary" id="button-search" type="submit" >Entrar!</button>
+                            </form>
+                                    <!-- AGREGADO -->
                             </div>
                         </div>
                     </div>

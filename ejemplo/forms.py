@@ -1,4 +1,3 @@
-from email.policy import default
 from django import forms
 from django.forms import ValidationError
 from ejemplo.models import Usuario
@@ -14,15 +13,15 @@ class abmCargar(forms.Form):
     password = forms.CharField(max_length=100)
     password_dos = forms.CharField(max_length=100)
 
+
     def clean_usuario(self):
         usuario = self.cleaned_data.get("usuario")
-        try:
-            user = Usuario.objects.get(usuario=usuario).usuario
-        except:
-            if usuario[0].isnumeric() or len(usuario) < 3:
+        if usuario[0].isnumeric() or len(usuario) < 3:
                 raise ValidationError ("El usuario tiene que ser mayor a 3 caracteres y no puede comenazar con un numero")
-        else:
-            raise ValidationError ("El usuario ya existe")
+        user = Usuario.objects.filter(usuario = usuario).exists()
+        if user: 
+                raise ValidationError ("El usuario ya existe")
+
         return usuario
 
     def clean_nombre(self):
@@ -43,3 +42,4 @@ class abmCargar(forms.Form):
         if password != password2:
             raise ValidationError ("La contraseñas ingresadas no coinciden")
         return password2
+

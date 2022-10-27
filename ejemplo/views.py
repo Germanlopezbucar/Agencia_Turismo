@@ -1,9 +1,11 @@
+from django import views
 from django.shortcuts import render
 from ejemplo.models import Familiar, Usuario
 from ejemplo.forms import Buscar
 from django.views import View
 from ejemplo.forms import abmCargar
 from django.views.generic import UpdateView
+
 
 def index(request):
     return render(request, "ejemplo/saludar.html")
@@ -92,6 +94,45 @@ def borrar (request,usuario):
     un_usuario = Usuario.objects.filter(usuario=usuario).all()
     un_usuario.delete()
     return render(request,"ejemplo/abm_borrar.html",{"usuario":usuario,"accion":"Borrado"})
+
+class modificar(View):
+
+    form_class = abmCargar
+    template_name = 'ejemplo/usuario_form.html'
+    initial = {"usuario":"",
+                "nombre":"",
+                "edad":"",
+                "password":"",
+                "password_dos":""}
+   
+    def get(self, request, usuario):
+        un_usuario = Usuario.objects.get(usuario=usuario)
+        form = abmCargar(initial={'usuario': un_usuario.usuario, 'nombre': un_usuario.nombre,
+                                                   'edad': un_usuario.edad, 'password': un_usuario.password,
+                                                   'password_dos': un_usuario.password_dos})
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request,usuario):
+
+        un_usuario = Usuario.objects.get(usuario=usuario)
+        
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            informacion = form.cleaned_data
+
+            un_usuario.usuario = informacion['usuario']
+            un_usuario.nombre = informacion['nombre']
+            un_usuario.edad = informacion["edad"]
+            un_usuario.password = informacion["password"]
+            un_usuario.password_dos = informacion["password_dos"]
+
+            un_usuario.save()
+                
+            return render(request,"ejemplo/abm_borrar.html",{"usuario":un_usuario.usuario,"accion":"Modificado"})
+        
+        return render(request, self.template_name, {"form": form,"error":form.errors})
+
 
 class UsuarioActualizar(UpdateView):
   model = Usuario

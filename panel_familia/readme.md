@@ -2,7 +2,7 @@
 
 Ejemplo de MVT para la clase de Coder House python, en el mismo podes: 
 
-- Crear 
+- Agregar 
 - Leer
 - Actulizar
 - Eliminar
