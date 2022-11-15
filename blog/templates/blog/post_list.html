@@ -7,23 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-<ul>
+    <a href="{% url 'blog-logout' %}"><button>Salir</button></a>
 
-{% block buscar %} {% endblock %}
-
-{% for post in object_list %}
-    <li>
-        {{post}}
-    </li>    
- 
-{% endfor %}  
-
-</ul>
-
-</a>  
-<a href="{% url 'index' %}" > 
-    <button>Volver a la Pagina Principal</button>
-</a>  
-
+    <ul>
+    {% for post in blog_post %}
+        <li>{{post}} 
+            <a href="{% url 'delete-post' post.id  %}"><button>Borrar</button></a>
+            <a href="{% url 'update-post' post.id  %}"><button>Actulizar</button></a>
+        </li>
+    {% endfor %}
+    </ul>
+   
+    <a href="{% url 'create-post' %}"> <button>Crear un nuevo post</button></a> 
+    <a href="{% url 'index-blog' %}"> <button>Vovler al blog</button></a> 
+  
 </body>
 </html>
