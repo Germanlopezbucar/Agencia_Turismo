@@ -10,10 +10,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.admin import User
 
 
-@login_required
+
 def index(request):
-    configuracion = Configuracion.objects.order_by('-date_published').all()
-    return render(request,'blog/index.html',{"configuracion":configuracion})
+    posts = Post.objects.order_by('-date_published').all()
+    return render(request,'blog/index.html',{"posts":posts})
 
 class ListPost(LoginRequiredMixin,ListView):
     model=Post
@@ -42,7 +42,7 @@ class SearchPostByName(ListView):
 
 class BlogLogin(LoginView):
     template_name = 'blog/blog_login.html'
-    next_page = reverse_lazy("list-post")
+    next_page = reverse_lazy("index-blog")
 
 class BlogLogout(LogoutView):
     template_name = 'blog/blog_logout.html'
@@ -56,3 +56,6 @@ class ProfileUpdate(UpdateView):
     model = User
     fields = ['username', 'first_name', 'last_name','email']
     success_url = reverse_lazy("blog-login")
+
+def about(request):
+    return render(request, "blog/about.html")
