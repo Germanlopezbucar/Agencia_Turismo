@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,5 +10,6 @@
 <body>
     {{object}}
     <img height="255" src="{{ object.image.url }}"/>
+    <img height="255" src="{% static 'blog/assets/''%}"/>
 </body>
 </html>

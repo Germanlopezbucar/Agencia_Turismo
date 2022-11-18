@@ -12,7 +12,7 @@ from django.contrib.auth.admin import User
 
 @login_required
 def index(request):
-    configuracion = Configuracion.objects.first()
+    configuracion = Configuracion.objects.order_by('-date_published').all()
     return render(request,'blog/index.html',{"configuracion":configuracion})
 
 class ListPost(LoginRequiredMixin,ListView):
@@ -26,12 +26,12 @@ class CreatePost(CreateView):
 class DetailPost(DetailView):
     model=Post
 
-class UpdatePost(UpdateView):
+class UpdatePost(LoginRequiredMixin, UpdateView):
     model=Post
     fields=['title', 'short_content', 'content','image']
     success_url = reverse_lazy("list-post")
 
-class DeletePost(DeleteView):
+class DeletePost(LoginRequiredMixin, DeleteView):
     model=Post
     success_url = reverse_lazy("list-post")
 
@@ -54,5 +54,5 @@ class BlogSignUp(CreateView):
 
 class ProfileUpdate(UpdateView):
     model = User
-    fields = ['username']
+    fields = ['username', 'first_name', 'last_name','email']
     success_url = reverse_lazy("blog-login")
