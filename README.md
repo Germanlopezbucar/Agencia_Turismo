@@ -71,4 +71,4 @@ Listo ya tenes corriendo el blog.
 
 ahora Hace click en el siguiente link para ver el ejemplo corriendo: 
 
-[http://localhost:8000/](http://127.0.0.1:8000/blog/index/))
+[http://localhost:8000/](http://127.0.0.1:8000/blog/index)
