@@ -1,4 +1,4 @@
-# German Lopez Bucar y Federico Gennaro
+# German Lopez Bucar
 
 En este blog podes encontrar los mejores restarurantes de argentina, una vez registrado podras : 
 
